@@ -1,33 +1,11 @@
+import View from './view';
 import icons from 'url:../../img/icons.svg';
 import { Fraction } from 'fractional';
 
-class RecipeView {
+class RecipeView extends View {
   _parentElement = document.querySelector('.recipe');
-  _data;
-
-  render(data) {
-    this._data = data;
-    const markup = this._generateMarkup();
-    this._clear();
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
-  }
-
-  _clear() {
-    this._parentElement.innerHTML = '';
-  }
-
-  // public method
-  renderSpinner = function () {
-    const markup = `
-          <div class="spinner">
-          <svg>
-            <use href="${icons}#icon-loader"></use>
-          </svg>
-        </div>
-        `;
-    this._parentElement.innerHTML = '';
-    this._parentElement.insertAdjacentHTML('afterbegin', markup);
-  };
+  _errorMessage = "We couldn't find that recipe. Please try another one";
+  _message = '';
 
   // doesn't know about the callback function (subscriber)
   addHandlerRender(handler) {
@@ -81,9 +59,7 @@ class RecipeView {
           </div>
 
           <div class="recipe__user-generated">
-            <svg>
-              <use href="${icons}#icon-user"></use>
-            </svg>
+
           </div>
           <button class="btn--round">
             <svg class="">
@@ -98,7 +74,6 @@ class RecipeView {
             ${this._data.ingredients
               .map(ing => this._generateMarkupIngredient(ing))
               .join('')}
-
           </ul>
         </div>
 

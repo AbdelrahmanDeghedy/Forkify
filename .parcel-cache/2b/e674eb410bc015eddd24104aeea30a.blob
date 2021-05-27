@@ -1,0 +1,35 @@
+var _modelJs = require('./model.js');
+var _viewsRecipeView = require('./views/recipeView');
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+var _viewsRecipeViewDefault = _parcelHelpers.interopDefault(_viewsRecipeView);
+require("core-js/stable");
+require("regenerator-runtime/runtime");
+var _viewsRecipeViewDefault = _parcelHelpers.interopDefault(_viewsRecipeView);
+const recipeContainer = document.querySelector('.recipe');
+const timeout = function (s) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject(new Error(`Request took too long! Timeout after ${s} second`));
+    }, s * 1000);
+  });
+};
+// https://forkify-api.herokuapp.com/v2
+// /////////////////////////////////////
+const controlRecipes = async function () {
+  try {
+    const id = window.location.hash.slice(1);
+    console.log(id);
+    if (!id) return;
+    // render spinner during loading the recipe
+    _viewsRecipeViewDefault.default.renderSpinner();
+    await _modelJs.loadRecipe(id);
+    // Rendering the recipe
+    _viewsRecipeViewDefault.default.render(_modelJs.state.recipe);
+  } catch (err) {
+    alert(err);
+  }
+};
+let events = ["hashchange", "load"];
+events.forEach(event => {
+  window.addEventListener(event, controlRecipes);
+});

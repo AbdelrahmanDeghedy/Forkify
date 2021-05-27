@@ -8,6 +8,7 @@ export const getJSON = async function (url) {
     if (!res.ok) throw new Error(`${data.message} (${res.status})`);
     return data;
   } catch (err) {
+    // rethrow the error, so that the model (caller of getJSON function) can catch it
     throw err;
   }
 };
