@@ -1,0 +1,35 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+var _view = require('./view');
+var _viewDefault = _parcelHelpers.interopDefault(_view);
+var _urlImgIconsSvg = require('url:../../img/icons.svg');
+var _urlImgIconsSvgDefault = _parcelHelpers.interopDefault(_urlImgIconsSvg);
+class PaginationView extends _viewDefault.default {
+  _parentElement = document.querySelector('.pagination');
+  _generateMarkup() {
+    const numPages = Math.ceil(this._data.results.length / this._data.resultsPerPage);
+    const currentPage = this._data.page;
+    // Page 1, and there are other pages
+    if (currentPage === 1 && numPages > 1) {}
+    // last page
+    if (currentPage === numPages && numPages > 1) {
+      return `
+        <button class="btn--inline pagination__btn--prev">
+        <svg class="search__icon">
+          <use href="${_urlImgIconsSvgDefault.default}#icon-arrow-left"></use>
+        </svg>
+        <span>Page ${currentPage - 1}</span>
+      </button>
+
+      <button class="btn--inline pagination__btn--next">
+        <span>Page 3</span>
+        <svg class="search__icon">
+          <use href="src/img/icons.svg#icon-arrow-right"></use>
+        </svg>
+      </button>`;
+    }
+    // other page
+    if (currentPage < numPages) {}
+  }
+}
+exports.default = new PaginationView();

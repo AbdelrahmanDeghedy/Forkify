@@ -1,0 +1,8 @@
+var _view = require('./view');
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+var _viewDefault = _parcelHelpers.interopDefault(_view);
+require('url:../../img/icons.svg');
+class PaginationView extends _viewDefault.default {
+  _parentElement = document.querySelector('.pagination');
+  _generateMarkup() {}
+}
